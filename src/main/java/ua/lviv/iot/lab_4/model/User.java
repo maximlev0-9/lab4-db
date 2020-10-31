@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class User {
     private int id;
-    private int roleId;
+    private Role roleId;
     private String name;
     private byte age;
     private String gender;
@@ -22,6 +22,17 @@ public class User {
     }
 
     @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", roleId=" + roleId +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, roleId, name, age, gender);
     }
@@ -34,11 +45,11 @@ public class User {
         this.id = id;
     }
 
-    public int getRoleId() {
+    public Role getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(Role roleId) {
         this.roleId = roleId;
     }
 

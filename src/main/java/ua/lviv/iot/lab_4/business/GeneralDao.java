@@ -10,13 +10,9 @@ public interface GeneralDao<T> {
 
     boolean deleteById(int id);
 
-    boolean exists(T t);
-
-    boolean existsById(int id);
-
     T findOne(int id);
 
-    T update(T t, int id);
+    boolean update(T t, int id);
 
     int count();
 }

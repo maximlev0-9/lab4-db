@@ -2,17 +2,17 @@ package ua.lviv.iot.lab_4.model;
 
 import java.util.Objects;
 
-public class Roles {
+public class Role {
     private int id;
     private String role;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Roles)) return false;
-        Roles roles = (Roles) o;
-        return id == roles.id &&
-                Objects.equals(role, roles.role);
+        if (!(o instanceof Role)) return false;
+        Role role = (Role) o;
+        return id == role.id &&
+                Objects.equals(this.role, role.role);
     }
 
     @Override
