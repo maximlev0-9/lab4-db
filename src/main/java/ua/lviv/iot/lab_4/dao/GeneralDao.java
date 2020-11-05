@@ -1,4 +1,4 @@
-package ua.lviv.iot.lab_4.business;
+package ua.lviv.iot.lab_4.dao;
 
 import java.util.List;
 

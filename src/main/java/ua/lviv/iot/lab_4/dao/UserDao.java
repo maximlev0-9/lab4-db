@@ -1,4 +1,4 @@
-package ua.lviv.iot.lab_4.business;
+package ua.lviv.iot.lab_4.dao;
 
 import ua.lviv.iot.lab_4.model.User;
 

@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Room {
     private int id;
-    private int objectId;
-    private int zoneId;
-    private int typeId;
+    private MyObject objectId;
+    private Zone zoneId;
+    private RoomType typeId;
     private double lengthInMeters;
     private double widthInMeters;
     private double heightInMeters;
@@ -38,27 +38,27 @@ public class Room {
         this.id = id;
     }
 
-    public int getObjectId() {
+    public MyObject getObjectId() {
         return objectId;
     }
 
-    public void setObjectId(int objectId) {
+    public void setObjectId(MyObject objectId) {
         this.objectId = objectId;
     }
 
-    public int getZoneId() {
+    public Zone getZoneId() {
         return zoneId;
     }
 
-    public void setZoneId(int zoneId) {
+    public void setZoneId(Zone zoneId) {
         this.zoneId = zoneId;
     }
 
-    public int getTypeId() {
+    public RoomType getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(RoomType typeId) {
         this.typeId = typeId;
     }
 

@@ -10,9 +10,9 @@ public class Role {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Role)) return false;
-        Role role = (Role) o;
-        return id == role.id &&
-                Objects.equals(this.role, role.role);
+        Role o1 = (Role) o;
+        return id == o1.id &&
+                Objects.equals(this.role, o1.role);
     }
 
     @Override
@@ -34,5 +34,13 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
     }
 }
