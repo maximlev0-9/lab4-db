@@ -17,6 +17,7 @@ public class RoleView extends AbstractView<Role> {
         System.out.print("Enter id of role to be updated: ");
         int id = input.nextInt();
         System.out.print("Enter it's role: ");
+        input.nextLine();
         String role = input.nextLine();
         Role newRole = new Role();
         newRole.setRole(role);

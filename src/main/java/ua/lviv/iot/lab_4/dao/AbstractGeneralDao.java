@@ -68,7 +68,9 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
             stmt.setInt(1, id);
             stmt.execute();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails")){
+                System.out.println("Error: delete related foreign keys first");
+            }
         }
         return true;
     }

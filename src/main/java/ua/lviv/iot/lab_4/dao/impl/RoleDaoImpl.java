@@ -16,7 +16,7 @@ public class RoleDaoImpl extends AbstractGeneralDao<Role> implements RoleDao {
         super("role");
     }
 
-    // todo: implement these
+    // todo: check these
     @Override
     protected List<Role> createListFromResultSet(ResultSet resultSet) {
         List<Role> roles = new ArrayList<>();
@@ -26,54 +26,51 @@ public class RoleDaoImpl extends AbstractGeneralDao<Role> implements RoleDao {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            Role role = new Role();
-            try {
-                role.setId(resultSet.getInt("id"));
-                role.setRole(resultSet.getString("role"));
-                roles.add(role);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            Role role = createObjectFromResultSet(resultSet);
+
+            roles.add(role);
         }
         return roles;
     }
 
     @Override
     protected String createSqlForSaving() {
-        return "insert into ?(role) values (?)";
+        return "insert into " + nameOfTable + "(role) values (?)";
     }
 
     @Override
     protected void preparePreparedStatementForSaving(PreparedStatement statement, Role role) {
-
-    }
-
-//    @Override
-    protected PreparedStatement createPreparedStatementForSaving(Role role) {
-        String sql = createSqlForSaving();
-        try (PreparedStatement stmt = getConnection().prepareStatement(sql);) {
-
-            stmt.setString(1, nameOfTable);
-            stmt.setString(2, role.getRole());
-            return stmt;
+        try {
+            statement.setString(1, role.getRole());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return null;
     }
 
     @Override
     protected Role createObjectFromResultSet(ResultSet rs) {
-        return null;
+        Role role = new Role();
+        try {
+            role.setId(rs.getInt(1));
+            role.setRole(rs.getString("role"));
+        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+        }
+        return role;
     }
 
     @Override
     protected void preparePreparedStatementForUpdating(PreparedStatement stmt, Role role, int id) {
-
+        try {
+            stmt.setString(1, role.getRole());
+            stmt.setInt(2, id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     protected String createSqlForUpdating() {
-        return null;
+        return "update " + nameOfTable + " set role=? where id=?";
     }
 }
