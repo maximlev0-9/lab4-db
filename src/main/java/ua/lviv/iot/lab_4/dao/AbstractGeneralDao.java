@@ -1,5 +1,7 @@
 package ua.lviv.iot.lab_4.dao;
 
+import ua.lviv.iot.lab_4.model.Role;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +42,20 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
         return new ArrayList<>();
     }
 
-    protected abstract List<T> createListFromResultSet(ResultSet resultSet);
+    protected List<T> createListFromResultSet(ResultSet resultSet) {
+        List<T> tList = new ArrayList<>();
+        while (true) {
+            try {
+                if (!resultSet.next()) break;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            T t = createObjectFromResultSet(resultSet);
+
+            tList.add(t);
+        }
+        return tList;
+    }
 
     public T save(T t) {
         String sqlForSaving = createSqlForSaving();
@@ -119,5 +134,9 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
             throwables.printStackTrace();
         }
         return -1;
+    }
+
+    public String getNameOfTable() {
+        return nameOfTable;
     }
 }

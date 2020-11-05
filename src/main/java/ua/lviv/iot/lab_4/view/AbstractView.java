@@ -13,11 +13,38 @@ public abstract class AbstractView<T> implements View<T> {
     protected final Scanner input = new Scanner(System.in);
     protected final Controller<T> controller;
     protected final String[] options;
+    protected final String nameOfTable;
 
-    public AbstractView(String[] options, AbstractGeneralDao<T> dao) {
-        this.options = options;
+    public AbstractView(AbstractGeneralDao<T> dao) {
         this.controller = new Controller<>(dao);
+            nameOfTable = dao.getNameOfTable();
+            this.options = new String[]{
+                    "Find all " + nameOfTable + "s",
+                    "Add new " + nameOfTable,
+                    "Delete " + nameOfTable,
+                    "Update existing " + nameOfTable};
+
+            methodsMenu.put("1", this::findAllObjects);
+            methodsMenu.put("2", this::addNewObject);
+            methodsMenu.put("3", this::deleteObject);
+            methodsMenu.put("4", this::updateObject);
     }
+
+    public AbstractView(String[] options) {
+        this.options = options;
+        this.nameOfTable = "";
+        this.controller = new Controller<>(null);
+    }
+
+    protected void findAllObjects() {
+        System.out.println(controller.findAll());
+    }
+
+    protected abstract void addNewObject();
+
+    protected abstract void deleteObject();
+
+    protected abstract void updateObject();
 
     public void show() {
         String keyMenu;

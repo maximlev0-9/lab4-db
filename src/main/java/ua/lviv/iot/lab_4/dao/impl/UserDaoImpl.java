@@ -19,20 +19,20 @@ public class UserDaoImpl extends AbstractGeneralDao<User> implements UserDao {
     }
 
     // todo: check these
-    @Override
-    protected List<User> createListFromResultSet(ResultSet resultSet) {
-        List<User> users = new ArrayList<>();
-        while (true) {
-            try {
-                if (!resultSet.next()) break;
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            User user = createObjectFromResultSet(resultSet);
-            users.add(user);
-        }
-        return users;
-    }
+//    @Override
+//    protected List<User> createListFromResultSet(ResultSet resultSet) {
+//        List<User> users = new ArrayList<>();
+//        while (true) {
+//            try {
+//                if (!resultSet.next()) break;
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//            User user = createObjectFromResultSet(resultSet);
+//            users.add(user);
+//        }
+//        return users;
+//    }
 
     @Override
     protected String createSqlForSaving() {

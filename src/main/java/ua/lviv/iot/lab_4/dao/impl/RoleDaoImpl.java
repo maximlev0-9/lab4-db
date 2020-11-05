@@ -17,21 +17,21 @@ public class RoleDaoImpl extends AbstractGeneralDao<Role> implements RoleDao {
     }
 
     // todo: check these
-    @Override
-    protected List<Role> createListFromResultSet(ResultSet resultSet) {
-        List<Role> roles = new ArrayList<>();
-        while (true) {
-            try {
-                if (!resultSet.next()) break;
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-            Role role = createObjectFromResultSet(resultSet);
-
-            roles.add(role);
-        }
-        return roles;
-    }
+//    @Override
+//    protected List<Role> createListFromResultSet(ResultSet resultSet) {
+//        List<Role> roles = new ArrayList<>();
+//        while (true) {
+//            try {
+//                if (!resultSet.next()) break;
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
+//            Role role = createObjectFromResultSet(resultSet);
+//
+//            roles.add(role);
+//        }
+//        return roles;
+//    }
 
     @Override
     protected String createSqlForSaving() {
