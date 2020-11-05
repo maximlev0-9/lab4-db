@@ -85,4 +85,17 @@ public class Room {
     public void setHeightInMeters(double heightInMeters) {
         this.heightInMeters = heightInMeters;
     }
+
+    @Override
+    public String toString() {
+        return "\nRoom{" +
+                "id=" + id +
+                ", objectId=" + objectId +
+                ", zoneId=" + zoneId +
+                ", typeId=" + typeId +
+                ", \nlengthInMeters=" + lengthInMeters +
+                ", widthInMeters=" + widthInMeters +
+                ", heightInMeters=" + heightInMeters +
+                '}';
+    }
 }

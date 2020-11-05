@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Device {
     private int id;
-    private int roomId;
+    private Room roomId;
     private int model;
     private int placingId;
     private int batteryCharge;
-    private int typeId;
+    private DeviceType typeId;
 
     @Override
     public boolean equals(Object o) {
@@ -36,11 +36,11 @@ public class Device {
         this.id = id;
     }
 
-    public int getRoomId() {
+    public Room getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(Room roomId) {
         this.roomId = roomId;
     }
 
@@ -68,11 +68,23 @@ public class Device {
         this.batteryCharge = batteryCharge;
     }
 
-    public int getTypeId() {
+    public DeviceType getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(DeviceType typeId) {
         this.typeId = typeId;
+    }
+
+    @Override
+    public String toString() {
+        return "\nDevice{" +
+                "id=" + id +
+                ", roomId=" + roomId.getId() +
+                ", model=" + model +
+                ", \nplacingId=" + placingId +
+                ", batteryCharge=" + batteryCharge +
+                ", typeId=" + typeId.getId() +
+                '}';
     }
 }

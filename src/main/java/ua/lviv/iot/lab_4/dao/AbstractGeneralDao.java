@@ -67,7 +67,9 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
                 return createObjectFromResultSet(rs);
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails")){
+                System.out.println("Error: there is no such id in params' tables");
+            }
         }
         return null;
     }

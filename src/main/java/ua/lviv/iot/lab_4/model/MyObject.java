@@ -5,7 +5,7 @@ import java.util.Objects;
 public class MyObject {
     private int id;
     private String name;
-    private int addressId;
+    private Address addressId;
 
     @Override
     public boolean equals(Object o) {
@@ -38,11 +38,20 @@ public class MyObject {
         this.name = name;
     }
 
-    public int getAddressId() {
+    public Address getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Address addressId) {
         this.addressId = addressId;
+    }
+
+    @Override
+    public String toString() {
+        return "\nMyObject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", addressId=" + addressId +
+                '}';
     }
 }

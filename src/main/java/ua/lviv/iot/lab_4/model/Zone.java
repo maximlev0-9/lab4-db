@@ -36,4 +36,12 @@ public class Zone {
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
+
+    @Override
+    public String toString() {
+        return "\nZone{" +
+                "id=" + id +
+                ", roleId=" + roleId +
+                '}';
+    }
 }
