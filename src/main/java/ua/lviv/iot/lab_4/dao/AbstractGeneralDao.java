@@ -1,6 +1,5 @@
 package ua.lviv.iot.lab_4.dao;
 
-import ua.lviv.iot.lab_4.model.Role;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
                 return createObjectFromResultSet(rs);
             }
         } catch (SQLException throwables) {
-            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails")){
+            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails")) {
                 System.out.println("Error: there is no such id in params' tables");
             }
         }
@@ -85,7 +84,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
             stmt.setInt(1, id);
             stmt.execute();
         } catch (SQLException throwables) {
-            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails")){
+            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails")) {
                 System.out.println("Error: delete related foreign keys first");
             }
         }
@@ -113,7 +112,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
     // todo: implement this
     public boolean update(T t, int id) {
         try (Connection connection = getConnection();
-                PreparedStatement stmt = connection.prepareStatement(createSqlForUpdating())) {
+             PreparedStatement stmt = connection.prepareStatement(createSqlForUpdating())) {
             preparePreparedStatementForUpdating(stmt, t, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException throwables) {

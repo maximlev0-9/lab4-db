@@ -1,4 +1,4 @@
-package ua.lviv.iot.lab_4.view;
+package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.dao.impl.RoleDaoImpl;
 import ua.lviv.iot.lab_4.model.Role;
@@ -17,14 +17,6 @@ public class RoleView extends AbstractView<Role> {
         newRole.setRole(input.nextLine());
         controller.save(newRole);
         System.out.println("Saved successfully");
-    }
-
-    @Override
-    protected void deleteObject() {
-        System.out.print("Enter id of role to be deleted: ");
-        int id = input.nextInt();
-        String response = controller.deleteById(id) ? "Deleted successfully" : "Oops, something gone wrong";
-        System.out.println(response);
     }
 
     @Override

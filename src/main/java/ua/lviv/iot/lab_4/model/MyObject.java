@@ -5,7 +5,7 @@ import java.util.Objects;
 public class MyObject {
     private int id;
     private String name;
-    private Address addressId;
+    private Address address;
 
     @Override
     public boolean equals(Object o) {
@@ -13,13 +13,13 @@ public class MyObject {
         if (!(o instanceof MyObject)) return false;
         MyObject myObject = (MyObject) o;
         return id == myObject.id &&
-                addressId == myObject.addressId &&
+                address == myObject.address &&
                 Objects.equals(name, myObject.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, addressId);
+        return Objects.hash(id, name, address);
     }
 
     public int getId() {
@@ -38,12 +38,12 @@ public class MyObject {
         this.name = name;
     }
 
-    public Address getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(Address addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MyObject {
         return "\nMyObject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", addressId=" + addressId +
+                ", addressId=" + address +
                 '}';
     }
 }

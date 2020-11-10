@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Device {
     private int id;
-    private Room roomId;
+    private Room room;
     private int model;
     private int placingId;
     private int batteryCharge;
-    private DeviceType typeId;
+    private DeviceType deviceType;
 
     @Override
     public boolean equals(Object o) {
@@ -16,16 +16,16 @@ public class Device {
         if (!(o instanceof Device)) return false;
         Device device = (Device) o;
         return id == device.id &&
-                roomId == device.roomId &&
+                room == device.room &&
                 model == device.model &&
                 placingId == device.placingId &&
                 batteryCharge == device.batteryCharge &&
-                typeId == device.typeId;
+                deviceType == device.deviceType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roomId, model, placingId, batteryCharge, typeId);
+        return Objects.hash(id, room, model, placingId, batteryCharge, deviceType);
     }
 
     public int getId() {
@@ -36,12 +36,12 @@ public class Device {
         this.id = id;
     }
 
-    public Room getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(Room roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public int getModel() {
@@ -68,23 +68,23 @@ public class Device {
         this.batteryCharge = batteryCharge;
     }
 
-    public DeviceType getTypeId() {
-        return typeId;
+    public DeviceType getDeviceType() {
+        return deviceType;
     }
 
-    public void setTypeId(DeviceType typeId) {
-        this.typeId = typeId;
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
     }
 
     @Override
     public String toString() {
         return "\nDevice{" +
                 "id=" + id +
-                ", roomId=" + roomId.getId() +
+                ", roomId=" + room.getId() +
                 ", model=" + model +
                 ", \nplacingId=" + placingId +
                 ", batteryCharge=" + batteryCharge +
-                ", typeId=" + typeId.getId() +
+                ", typeId=" + deviceType.getId() +
                 '}';
     }
 }

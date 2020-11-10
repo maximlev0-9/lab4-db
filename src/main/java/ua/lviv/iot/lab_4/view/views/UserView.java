@@ -1,4 +1,4 @@
-package ua.lviv.iot.lab_4.view;
+package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.dao.impl.UserDaoImpl;
 import ua.lviv.iot.lab_4.model.Role;
@@ -28,13 +28,6 @@ public class UserView extends AbstractView<User> {
         System.out.println("Saved successfully");
     }
 
-    @Override
-    protected void deleteObject() {
-        System.out.println("Enter id of user to be deleted: ");
-        int id = input.nextInt();
-        String response = controller.deleteById(id) ? "Deleted successfully" : "Oops, something gone wrong";
-        System.out.println(response);
-    }
 
     @Override
     protected void updateObject() {

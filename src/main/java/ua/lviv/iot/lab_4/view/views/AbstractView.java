@@ -1,7 +1,9 @@
-package ua.lviv.iot.lab_4.view;
+package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.controller.Controller;
 import ua.lviv.iot.lab_4.dao.AbstractGeneralDao;
+import ua.lviv.iot.lab_4.view.MenuOption;
+import ua.lviv.iot.lab_4.view.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,17 +19,17 @@ public abstract class AbstractView<T> implements View<T> {
 
     public AbstractView(AbstractGeneralDao<T> dao) {
         this.controller = new Controller<>(dao);
-            nameOfTable = dao.getNameOfTable();
-            this.options = new String[]{
-                    "Find all " + nameOfTable + "s",
-                    "Add new " + nameOfTable,
-                    "Delete " + nameOfTable,
-                    "Update existing " + nameOfTable};
+        nameOfTable = dao.getNameOfTable();
+        this.options = new String[]{
+                "Find all " + nameOfTable + "s",
+                "Add new " + nameOfTable,
+                "Delete " + nameOfTable,
+                "Update existing " + nameOfTable};
 
-            methodsMenu.put("1", this::findAllObjects);
-            methodsMenu.put("2", this::addNewObject);
-            methodsMenu.put("3", this::deleteObject);
-            methodsMenu.put("4", this::updateObject);
+        methodsMenu.put("1", this::findAllObjects);
+        methodsMenu.put("2", this::addNewObject);
+        methodsMenu.put("3", this::deleteObject);
+        methodsMenu.put("4", this::updateObject);
     }
 
     public AbstractView(String[] options) {
@@ -42,7 +44,12 @@ public abstract class AbstractView<T> implements View<T> {
 
     protected abstract void addNewObject();
 
-    protected abstract void deleteObject();
+    protected void deleteObject() {
+        System.out.println("Enter id of " + nameOfTable + " to be deleted: ");
+        int id = input.nextInt();
+        String response = controller.deleteById(id) ? "Deleted successfully" : "Oops, something gone wrong";
+        System.out.println(response);
+    }
 
     protected abstract void updateObject();
 

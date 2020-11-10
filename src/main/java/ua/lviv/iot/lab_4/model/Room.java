@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Room {
     private int id;
-    private MyObject objectId;
-    private Zone zoneId;
-    private RoomType typeId;
+    private MyObject object;
+    private Zone zone;
+    private RoomType roomType;
     private double lengthInMeters;
     private double widthInMeters;
     private double heightInMeters;
@@ -17,9 +17,9 @@ public class Room {
         if (!(o instanceof Room)) return false;
         Room room = (Room) o;
         return id == room.id &&
-                objectId == room.objectId &&
-                zoneId == room.zoneId &&
-                typeId == room.typeId &&
+                object == room.object &&
+                zone == room.zone &&
+                roomType == room.roomType &&
                 Double.compare(room.lengthInMeters, lengthInMeters) == 0 &&
                 Double.compare(room.widthInMeters, widthInMeters) == 0 &&
                 Double.compare(room.heightInMeters, heightInMeters) == 0;
@@ -27,7 +27,7 @@ public class Room {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, objectId, zoneId, typeId, lengthInMeters, widthInMeters, heightInMeters);
+        return Objects.hash(id, object, zone, roomType, lengthInMeters, widthInMeters, heightInMeters);
     }
 
     public int getId() {
@@ -38,28 +38,28 @@ public class Room {
         this.id = id;
     }
 
-    public MyObject getObjectId() {
-        return objectId;
+    public MyObject getObject() {
+        return object;
     }
 
-    public void setObjectId(MyObject objectId) {
-        this.objectId = objectId;
+    public void setObject(MyObject object) {
+        this.object = object;
     }
 
-    public Zone getZoneId() {
-        return zoneId;
+    public Zone getZone() {
+        return zone;
     }
 
-    public void setZoneId(Zone zoneId) {
-        this.zoneId = zoneId;
+    public void setZone(Zone zone) {
+        this.zone = zone;
     }
 
-    public RoomType getTypeId() {
-        return typeId;
+    public RoomType getRoomType() {
+        return roomType;
     }
 
-    public void setTypeId(RoomType typeId) {
-        this.typeId = typeId;
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
     }
 
     public double getLengthInMeters() {
@@ -90,9 +90,9 @@ public class Room {
     public String toString() {
         return "\nRoom{" +
                 "id=" + id +
-                ", objectId=" + objectId +
-                ", zoneId=" + zoneId +
-                ", typeId=" + typeId +
+                ", objectId=" + object +
+                ", zoneId=" + zone +
+                ", typeId=" + roomType +
                 ", \nlengthInMeters=" + lengthInMeters +
                 ", widthInMeters=" + widthInMeters +
                 ", heightInMeters=" + heightInMeters +
