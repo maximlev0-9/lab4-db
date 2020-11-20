@@ -36,4 +36,12 @@ public class RoomType {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "RoomType{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }

@@ -4,6 +4,8 @@ import ua.lviv.iot.lab_4.dao.impl.UserDaoImpl;
 import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.model.User;
 
+
+//working
 public class UserView extends AbstractView<User> {
 
     public UserView() {

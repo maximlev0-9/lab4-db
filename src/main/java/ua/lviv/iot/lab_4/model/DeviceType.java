@@ -38,7 +38,7 @@ public class DeviceType {
 
     @Override
     public String toString() {
-        return "DeviceType{" +
+        return "\nDeviceType{" +
                 "id=" + id +
                 ", type='" + type + '\'' +
                 '}';

@@ -1,6 +1,7 @@
 package ua.lviv.iot.lab_4.dao.impl;
 
 import ua.lviv.iot.lab_4.dao.AbstractGeneralDao;
+import ua.lviv.iot.lab_4.model.Address;
 import ua.lviv.iot.lab_4.model.MyObject;
 
 import java.sql.PreparedStatement;
@@ -35,9 +36,10 @@ public class ObjectDaoImpl extends AbstractGeneralDao<MyObject> {
         try {
             object.setId(rs.getInt(1));
             object.setName(rs.getString("name"));
-//            Statement statement = getConnection().createStatement();
-//            ResultSet set = statement.executeQuery("select * from room_type where id=" + rs.getInt("type_id"));
-            object.setAddress(new AddressDaoImpl().findOne(rs.getInt("address_id")));
+            int addressId = rs.getInt("address_id");
+            Address address = new Address();
+            address.setId(addressId);
+            object.setAddress(address);
         } catch (SQLException ignored) {
         }
         return object;

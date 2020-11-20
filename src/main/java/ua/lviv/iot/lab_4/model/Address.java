@@ -75,4 +75,16 @@ public class Address {
     public void setFlatNumber(int flatNumber) {
         this.flatNumber = flatNumber;
     }
+
+    @Override
+    public String toString() {
+        return "\nAddress{" +
+                "id=" + id +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", buildingNumber=" + buildingNumber +
+                ", flatNumber=" + flatNumber +
+                '}';
+    }
 }

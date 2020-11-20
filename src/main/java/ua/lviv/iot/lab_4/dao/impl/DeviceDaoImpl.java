@@ -3,11 +3,12 @@ package ua.lviv.iot.lab_4.dao.impl;
 import ua.lviv.iot.lab_4.dao.AbstractGeneralDao;
 import ua.lviv.iot.lab_4.model.Device;
 import ua.lviv.iot.lab_4.model.DeviceType;
+import ua.lviv.iot.lab_4.model.Room;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+// working
 public class DeviceDaoImpl extends AbstractGeneralDao<Device> {
 
     public DeviceDaoImpl() {
@@ -16,7 +17,7 @@ public class DeviceDaoImpl extends AbstractGeneralDao<Device> {
 
     @Override
     protected String createSqlForSaving() {
-        return "insert into " + nameOfTable + "(roomId, model, placingId, batteryCharge, typeId) values (?,?,?,?,?)";
+        return "insert into " + nameOfTable + "(room_id, model, placing_id, battery_charge, type_id) values (?,?,?,?,?)";
     }
 
     @Override
@@ -42,8 +43,11 @@ public class DeviceDaoImpl extends AbstractGeneralDao<Device> {
             device.setBatteryCharge(rs.getInt("battery_charge"));
             device.setModel(rs.getInt("model"));
             DeviceType deviceType = new DeviceType();
-            deviceType.setId(rs.getInt("device_type"));
+            deviceType.setId(rs.getInt("type_id"));
             device.setDeviceType(deviceType);
+            Room room = new Room();
+            room.setId(rs.getInt("room_id"));
+            device.setRoom(room);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,6 +67,6 @@ public class DeviceDaoImpl extends AbstractGeneralDao<Device> {
 
     @Override
     protected String createSqlForUpdating() {
-        return "update " + nameOfTable + " set room_id=?, model=?, placing_id=?, batteryCharge=?, type_id=? where id=?";
+        return "update " + nameOfTable + " set room_id=?, model=?, placing_id=?, battery_charge=?, type_id=? where id=?";
     }
 }

@@ -82,7 +82,7 @@ public class Device {
                 "id=" + id +
                 ", roomId=" + room.getId() +
                 ", model=" + model +
-                ", \nplacingId=" + placingId +
+                ", placingId=" + placingId +
                 ", batteryCharge=" + batteryCharge +
                 ", typeId=" + deviceType.getId() +
                 '}';

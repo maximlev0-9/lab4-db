@@ -1,10 +1,11 @@
-package ua.lviv.iot.lab_4.view;
+package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.dao.impl.ObjectDaoImpl;
 import ua.lviv.iot.lab_4.model.Address;
 import ua.lviv.iot.lab_4.model.MyObject;
-import ua.lviv.iot.lab_4.view.views.AbstractView;
 
+
+// working
 public class ObjectView extends AbstractView<MyObject> {
     public ObjectView() {
         super(new ObjectDaoImpl());

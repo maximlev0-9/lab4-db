@@ -7,6 +7,10 @@ public class MyObject {
     private String name;
     private Address address;
 
+    public MyObject() {
+        this.address = new Address();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,7 +55,7 @@ public class MyObject {
         return "\nMyObject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", addressId=" + address +
+                ", address id=" + address.getId() +
                 '}';
     }
 }

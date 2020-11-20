@@ -62,12 +62,12 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
              PreparedStatement stmt = conn.prepareStatement(sqlForSaving, Statement.RETURN_GENERATED_KEYS)) {
             preparePreparedStatementForSaving(stmt, t);
             stmt.executeUpdate();
-            try (ResultSet rs = stmt.getGeneratedKeys()) {
-                return createObjectFromResultSet(rs);
-            }
+            return t;
         } catch (SQLException throwables) {
-            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails")) {
+            if (throwables.getMessage().startsWith("Cannot add or update a child row: a foreign key constraint fails")) {
                 System.out.println("Error: there is no such id in params' tables");
+            }else {
+                System.out.println(throwables.getMessage());
             }
         }
         return null;
@@ -84,8 +84,10 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
             stmt.setInt(1, id);
             stmt.execute();
         } catch (SQLException throwables) {
-            if (!throwables.getMessage().startsWith("java.sql.SQLIntegrityConstraintViolationException: Cannot delete or update a parent row: a foreign key constraint fails")) {
+            if (throwables.getMessage().startsWith("Cannot delete or update a parent row: a foreign key constraint fails")) {
                 System.out.println("Error: delete related foreign keys first");
+            } else {
+                System.out.println(throwables.getMessage());;
             }
         }
         return true;
@@ -98,6 +100,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
+                rs.next();
                 return createObjectFromResultSet(rs);
             }
         } catch (SQLException throwables) {
@@ -109,7 +112,6 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
     protected abstract T createObjectFromResultSet(ResultSet rs);
 
 
-    // todo: implement this
     public boolean update(T t, int id) {
         try (Connection connection = getConnection();
              PreparedStatement stmt = connection.prepareStatement(createSqlForUpdating())) {

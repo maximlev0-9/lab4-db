@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+// working
 public class AddressDaoImpl extends AbstractGeneralDao<Address> {
 
     public AddressDaoImpl() {
@@ -15,17 +17,17 @@ public class AddressDaoImpl extends AbstractGeneralDao<Address> {
 
     @Override
     protected String createSqlForSaving() {
-        return "insert into " + nameOfTable + "(country, city, street, buildingNumber, flatNumber) values(?,?,?,?,?)";
+        return "insert into " + nameOfTable + "(country, city, street, building_number, flat_number) values(?,?,?,?,?)";
     }
 
     @Override
     protected void preparePreparedStatementForSaving(PreparedStatement statement, Address address) {
         try {
-            statement.setInt(1, address.getBuildingNumber());
-            statement.setInt(2, address.getFlatNumber());
-            statement.setString(3, address.getCity());
-            statement.setString(4, address.getCountry());
-            statement.setString(5, address.getStreet());
+            statement.setString(1, address.getCountry());
+            statement.setString(2, address.getCity());
+            statement.setString(3, address.getStreet());
+            statement.setInt(4, address.getBuildingNumber());
+            statement.setInt(5, address.getFlatNumber());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -37,10 +39,10 @@ public class AddressDaoImpl extends AbstractGeneralDao<Address> {
         try {
             address.setId(rs.getInt(1));
             address.setBuildingNumber(rs.getInt("building_number"));
+            address.setStreet(rs.getString("street"));
             address.setCity(rs.getString("city"));
             address.setCountry(rs.getString("country"));
-            address.setFlatNumber(rs.getInt("flat_number"));
-            address.setStreet(rs.getString("street"));
+            address.setFlatNumber(rs.getInt(6));
 
         } catch (SQLException ignored) {
         }
@@ -58,7 +60,7 @@ public class AddressDaoImpl extends AbstractGeneralDao<Address> {
 
     @Override
     protected String createSqlForUpdating() {
-        return "update " + nameOfTable + " set country=?, city=?, street=?, buildingNumber=?, flatNumber=? where id=?";
+        return "update " + nameOfTable + " set country=?, city=?, street=?, building_number=?, flat_number=? where id=?";
 
     }
 }

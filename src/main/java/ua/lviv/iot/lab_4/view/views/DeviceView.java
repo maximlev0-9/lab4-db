@@ -33,26 +33,25 @@ public class DeviceView extends AbstractView<Device> {
 
     @Override
     protected void updateObject() {
-        System.out.println("Enter id of user to be updated: ");
+        System.out.println("Enter id of device to be updated: ");
         int id = input.nextInt();
-        Device oldDevice = controller.findOne(id);
         Device newDevice = new Device();
-        System.out.println("Enter new params (leave blank to not change param):");
+        System.out.println("Enter new params:");
         System.out.print("Room id: ");
         input.nextLine();
         int roomId = input.nextInt();
         Room room = new Room();
         room.setId(roomId);
-        newDevice.setRoom(roomId == 0 ? oldDevice.getRoom() : room);
+        newDevice.setRoom(room);
         System.out.print("Model: ");
         int model = input.nextInt();
-        newDevice.setModel(model == 0 ? oldDevice.getModel() : model);
+        newDevice.setModel(model);
         System.out.print("Placing id: ");
         int placing = input.nextInt();
-        newDevice.setPlacingId(placing == 0 ? oldDevice.getPlacingId() : placing);
+        newDevice.setPlacingId(placing);
         System.out.print("Battery charge: ");
         int charge = input.nextInt();
-        newDevice.setPlacingId(charge);
+        newDevice.setBatteryCharge(charge);
         System.out.print("Device type id: ");
         int typeId = input.nextInt();
         DeviceType type = new DeviceType();

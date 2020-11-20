@@ -21,7 +21,7 @@ public class RoomView extends AbstractView<Room> {
         newRoom.setObject(object);
         System.out.print("Zone id: ");
         Zone zone = new Zone();
-        object.setId(input.nextInt());
+        zone.setId(input.nextInt());
         newRoom.setZone(zone);
         System.out.print("Room type id: ");
         RoomType type = new RoomType();
@@ -50,7 +50,7 @@ public class RoomView extends AbstractView<Room> {
         newRoom.setObject(object);
         System.out.print("Zone id: ");
         Zone zone = new Zone();
-        object.setId(input.nextInt());
+        zone.setId(input.nextInt());
         newRoom.setZone(zone);
         System.out.print("Room type id: ");
         RoomType type = new RoomType();

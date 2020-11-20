@@ -1,14 +1,16 @@
 package ua.lviv.iot.lab_4.dao.impl;
 
 import ua.lviv.iot.lab_4.dao.AbstractGeneralDao;
+import ua.lviv.iot.lab_4.model.MyObject;
 import ua.lviv.iot.lab_4.model.Room;
 import ua.lviv.iot.lab_4.model.RoomType;
+import ua.lviv.iot.lab_4.model.Zone;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+// working
 public class RoomDaoImpl extends AbstractGeneralDao<Room> {
     public RoomDaoImpl() {
         super("room");
@@ -16,7 +18,7 @@ public class RoomDaoImpl extends AbstractGeneralDao<Room> {
 
     @Override
     protected String createSqlForSaving() {
-        return "insert into " + nameOfTable + "(object_id, zone_id, type_id, length, width, height) values (?,?,?,?,?,?)";
+        return "insert into " + nameOfTable + "(object_id, zone_id, type_id, lenght, width, height) values (?,?,?,?,?,?);";
     }
 
     @Override
@@ -39,13 +41,18 @@ public class RoomDaoImpl extends AbstractGeneralDao<Room> {
         try {
             room.setId(rs.getInt(1));
             room.setHeightInMeters(rs.getDouble("height"));
-            room.setLengthInMeters(rs.getDouble("length"));
+            room.setLengthInMeters(rs.getDouble("lenght"));
             room.setWidthInMeters(rs.getDouble("width"));
-            room.setObject(new ObjectDaoImpl().findOne(rs.getInt("object_id")));
-            room.setZone(new ZoneDaoImpl().findOne(rs.getInt("zone_id")));
+            MyObject object = new MyObject();
+            object.setId(rs.getInt("object_id"));
+            room.setObject(object);
+            Zone zone = new Zone();
+            zone.setId(rs.getInt("zone_id"));
+            room.setZone(zone);
 
             Statement statement = getConnection().createStatement();
             ResultSet set = statement.executeQuery("select * from room_type where id=" + rs.getInt("type_id"));
+            set.next();
             RoomType roomType = new RoomType();
             roomType.setId(set.getInt(1));
             roomType.setType(set.getString("type"));
@@ -53,9 +60,9 @@ public class RoomDaoImpl extends AbstractGeneralDao<Room> {
             statement.close();
             room.setRoomType(roomType);
         } catch (SQLException ignored) {
+            ignored.printStackTrace();
         }
         return room;
-
     }
 
     @Override
@@ -70,6 +77,6 @@ public class RoomDaoImpl extends AbstractGeneralDao<Room> {
 
     @Override
     protected String createSqlForUpdating() {
-        return "update " + nameOfTable + " set object_id=?, zone_id=?, type_id=?, length=?, width=?, height=?) where id=?";
+        return "update " + nameOfTable + " set object_id=?, zone_id=?, type_id=?, lenght=?, width=?, height=? where id=?;";
     }
 }

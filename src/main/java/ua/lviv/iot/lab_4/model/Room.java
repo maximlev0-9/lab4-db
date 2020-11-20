@@ -90,9 +90,9 @@ public class Room {
     public String toString() {
         return "\nRoom{" +
                 "id=" + id +
-                ", objectId=" + object +
-                ", zoneId=" + zone +
-                ", typeId=" + roomType +
+                ", objectId=" + object.getId() +
+                ", zoneId=" + zone.getId() +
+                ", typeId=" + roomType.getId() +
                 ", \nlengthInMeters=" + lengthInMeters +
                 ", widthInMeters=" + widthInMeters +
                 ", heightInMeters=" + heightInMeters +
