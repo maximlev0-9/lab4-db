@@ -4,8 +4,6 @@ import ua.lviv.iot.lab_4.dao.impl.ObjectDaoImpl;
 import ua.lviv.iot.lab_4.model.Address;
 import ua.lviv.iot.lab_4.model.MyObject;
 
-
-// working
 public class ObjectView extends AbstractView<MyObject> {
     public ObjectView() {
         super(new ObjectDaoImpl());

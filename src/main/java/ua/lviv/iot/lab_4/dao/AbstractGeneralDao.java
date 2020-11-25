@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
-    private static final String DB_URL = "jdbc:mysql://localhost/ajax_systems_v3?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String DB_URL = "jdbc:mysql://localhost/ajax_systems_v3?useUnicode=true&"
+            + "useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String PASS = "New_password1";
     private static final String USER = "ioter";
     protected final String nameOfTable;
 
-
-    public AbstractGeneralDao(String nameOfTable) {
-        this.nameOfTable = nameOfTable;
+    public AbstractGeneralDao(final String passedNameOfTable) {
+        this.nameOfTable = passedNameOfTable;
     }
 
     protected Connection getConnection() {
@@ -45,7 +45,9 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
         List<T> tList = new ArrayList<>();
         while (true) {
             try {
-                if (!resultSet.next()) break;
+                if (!resultSet.next()) {
+                    break;
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -56,7 +58,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
         return tList;
     }
 
-    public T save(T t) {
+    public T save(final T t) {
         String sqlForSaving = createSqlForSaving();
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(sqlForSaving, Statement.RETURN_GENERATED_KEYS)) {
@@ -66,7 +68,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
         } catch (SQLException throwables) {
             if (throwables.getMessage().startsWith("Cannot add or update a child row: a foreign key constraint fails")) {
                 System.out.println("Error: there is no such id in params' tables");
-            }else {
+            } else {
                 System.out.println(throwables.getMessage());
             }
         }
@@ -75,7 +77,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
 
     protected abstract String createSqlForSaving();
 
-    protected abstract void preparePreparedStatementForSaving(PreparedStatement statement, T t);
+    protected abstract void preparePreparedStatementForSaving(final PreparedStatement statement, final T t);
 
     public boolean deleteById(int id) {
         String sql = "Delete from " + nameOfTable + " where id=?;";
@@ -93,7 +95,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
         return true;
     }
 
-    public T findOne(int id) {
+    public T findOne(final int id) {
         String sql = "select * from " + nameOfTable + " where id=?;";
 
         try (Connection conn = getConnection();
@@ -112,7 +114,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
     protected abstract T createObjectFromResultSet(ResultSet rs);
 
 
-    public boolean update(T t, int id) {
+    public boolean update(final T t, final int id) {
         try (Connection connection = getConnection();
              PreparedStatement stmt = connection.prepareStatement(createSqlForUpdating())) {
             preparePreparedStatementForUpdating(stmt, t, id);
@@ -123,7 +125,7 @@ public abstract class AbstractGeneralDao<T> implements GeneralDao<T> {
         return false;
     }
 
-    protected abstract void preparePreparedStatementForUpdating(PreparedStatement stmt, T t, int id);
+    protected abstract void preparePreparedStatementForUpdating(final PreparedStatement stmt, final T t, final int id);
 
     protected abstract String createSqlForUpdating();
 

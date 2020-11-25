@@ -2,7 +2,7 @@ package ua.lviv.iot.lab_4.model;
 
 import java.util.Objects;
 
-public class Address {
+public final class Address {
     private int id;
     private String country;
     private String city;
@@ -12,15 +12,19 @@ public class Address {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Address)) {
+            return false;
+        }
         Address address = (Address) o;
-        return id == address.id &&
-                buildingNumber == address.buildingNumber &&
-                flatNumber == address.flatNumber &&
-                Objects.equals(country, address.country) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(street, address.street);
+        return id == address.id
+                && buildingNumber == address.buildingNumber
+                && flatNumber == address.flatNumber
+                && Objects.equals(country, address.country)
+                && Objects.equals(city, address.city)
+                && Objects.equals(street, address.street);
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// working
 public class RoleDaoImpl extends AbstractGeneralDao<Role> implements RoleDao {
 
     public RoleDaoImpl() {

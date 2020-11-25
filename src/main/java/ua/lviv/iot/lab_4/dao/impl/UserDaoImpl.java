@@ -9,16 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+// working
 public class UserDaoImpl extends AbstractGeneralDao<User> implements UserDao {
 
     public UserDaoImpl() {
         super("user");
     }
-
-    // todo: check these
 
     @Override
     protected String createSqlForSaving() {
@@ -47,9 +44,7 @@ public class UserDaoImpl extends AbstractGeneralDao<User> implements UserDao {
             Role role = new Role();
             role.setId(rs.getByte("role_id"));
             newUser.setRoleId(role);
-        } catch (SQLException throwables) {
-            //todo: fix that
-//            throwables.printStackTrace();
+        } catch (SQLException ignored) {
         }
         return newUser;
     }
