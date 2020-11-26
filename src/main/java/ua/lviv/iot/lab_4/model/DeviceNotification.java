@@ -1,12 +1,28 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class DeviceNotification {
+@Entity
+public class DeviceNotification implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int message;
     private boolean isSeen;
-    private boolean deviceId;
+    @OneToOne
+    private Device device;
+
+
+    @Override
+    public String toString() {
+        return "DeviceNotification{" +
+                "id=" + id +
+                ", message=" + message +
+                ", isSeen=" + isSeen +
+                ", device id=" + device.getId() +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -16,12 +32,20 @@ public class DeviceNotification {
         return id == that.id &&
                 message == that.message &&
                 isSeen == that.isSeen &&
-                deviceId == that.deviceId;
+                Objects.equals(device, that.device);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, message, isSeen, deviceId);
+        return Objects.hash(id, message, isSeen, device);
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
     }
 
     public int getId() {
@@ -48,11 +72,4 @@ public class DeviceNotification {
         isSeen = seen;
     }
 
-    public boolean isDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(boolean deviceId) {
-        this.deviceId = deviceId;
-    }
 }

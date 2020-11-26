@@ -3,6 +3,7 @@ package ua.lviv.iot.lab_4.view.views;
 import ua.lviv.iot.lab_4.dao.impl.DeviceDaoImpl;
 import ua.lviv.iot.lab_4.dao.impl.RoomDaoImpl;
 import ua.lviv.iot.lab_4.model.Device;
+import ua.lviv.iot.lab_4.model.DevicePlacing;
 import ua.lviv.iot.lab_4.model.DeviceType;
 import ua.lviv.iot.lab_4.model.Room;
 
@@ -20,13 +21,15 @@ public class DeviceView extends AbstractView<Device> {
         System.out.print("Model (number): ");
         newDevice.setModel(input.nextInt());
         System.out.print("Placing id: ");
-        newDevice.setPlacingId(input.nextInt());
+        DevicePlacing placing = new DevicePlacing();
+        placing.setId(input.nextInt());
+        newDevice.setPlacing(placing);
         System.out.print("Battery charge: ");
         newDevice.setBatteryCharge(input.nextInt());
         System.out.print("Device type id: ");
         DeviceType typeId = new DeviceType();
         typeId.setId(input.nextInt());
-        newDevice.setDeviceType(typeId);
+        newDevice.setType(typeId);
         controller.save(newDevice);
         System.out.println("Saved successfully");
     }
@@ -47,8 +50,9 @@ public class DeviceView extends AbstractView<Device> {
         int model = input.nextInt();
         newDevice.setModel(model);
         System.out.print("Placing id: ");
-        int placing = input.nextInt();
-        newDevice.setPlacingId(placing);
+        DevicePlacing placing = new DevicePlacing();
+        placing.setId(input.nextInt());
+        newDevice.setPlacing(placing);
         System.out.print("Battery charge: ");
         int charge = input.nextInt();
         newDevice.setBatteryCharge(charge);
@@ -56,7 +60,7 @@ public class DeviceView extends AbstractView<Device> {
         int typeId = input.nextInt();
         DeviceType type = new DeviceType();
         type.setId(typeId);
-        newDevice.setDeviceType(type);
+        newDevice.setType(type);
         controller.update(newDevice, id);
         System.out.println("Updated successfully");
     }

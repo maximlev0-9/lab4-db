@@ -2,14 +2,16 @@ package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.controller.Controller;
 import ua.lviv.iot.lab_4.dao.AbstractGeneralDao;
+import ua.lviv.iot.lab_4.model.IWithId;
 import ua.lviv.iot.lab_4.view.MenuOption;
 import ua.lviv.iot.lab_4.view.View;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public abstract class AbstractView<T> implements View<T> {
+public abstract class AbstractView<T extends IWithId> implements View<T> {
 
     protected final Map<String, MenuOption> methodsMenu = new HashMap<>();
     protected final Scanner input = new Scanner(System.in);
@@ -19,7 +21,7 @@ public abstract class AbstractView<T> implements View<T> {
 
     public AbstractView(AbstractGeneralDao<T> dao) {
         this.controller = new Controller<>(dao);
-        nameOfTable = dao.getNameOfTable();
+        nameOfTable = dao.getName().split("\\.")[5];
         this.options = new String[]{
                 "Find all " + nameOfTable + "s",
                 "Add new " + nameOfTable,
@@ -39,7 +41,8 @@ public abstract class AbstractView<T> implements View<T> {
     }
 
     protected void findAllObjects() {
-        System.out.println(controller.findAll());
+        List<T> all = controller.findAll();
+        System.out.println(all);
     }
 
     protected abstract void addNewObject();
@@ -47,8 +50,7 @@ public abstract class AbstractView<T> implements View<T> {
     protected void deleteObject() {
         System.out.println("Enter id of " + nameOfTable + " to be deleted: ");
         int id = input.nextInt();
-        String response = controller.deleteById(id) ? "Deleted successfully" : "Oops, something gone wrong";
-        System.out.println(response);
+        controller.deleteById(id);
     }
 
     protected abstract void updateObject();
@@ -61,9 +63,9 @@ public abstract class AbstractView<T> implements View<T> {
             keyMenu = input.nextLine().toUpperCase();
             try {
                 methodsMenu.get(keyMenu).execute();
+            } catch (NullPointerException ignored) {
             } catch (Exception e) {
-                //todo: fix that
-//                e.printStackTrace();
+                e.printStackTrace();
             }
         } while (!keyMenu.equals("Q"));
     }

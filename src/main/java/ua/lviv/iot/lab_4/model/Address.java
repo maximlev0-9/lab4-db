@@ -1,14 +1,24 @@
 package ua.lviv.iot.lab_4.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-public final class Address {
+@Entity
+public final class Address implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String country;
     private String city;
     private String street;
+    @Column(name = "building_number")
     private int buildingNumber;
-    private int flatNumber;
+    @Column(name = "flat_number")
+    private Integer flatNumber;
 
     @Override
     public boolean equals(Object o) {

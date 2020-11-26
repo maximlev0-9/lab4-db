@@ -30,6 +30,7 @@ public class ObjectView extends AbstractView<MyObject> {
         MyObject newObject = new MyObject();
         System.out.println("Enter it's params:");
         System.out.print("name: ");
+        input.nextLine();
         newObject.setName(input.nextLine());
         System.out.print("address id: ");
         Address a = new Address();

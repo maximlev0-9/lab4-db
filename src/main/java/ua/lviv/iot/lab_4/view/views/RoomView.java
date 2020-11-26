@@ -26,7 +26,7 @@ public class RoomView extends AbstractView<Room> {
         System.out.print("Room type id: ");
         RoomType type = new RoomType();
         type.setId(input.nextInt());
-        newRoom.setRoomType(type);
+        newRoom.setType(type);
         System.out.print("length (in meters): ");
         newRoom.setLengthInMeters(input.nextInt());
         System.out.print("width (in meters): ");
@@ -55,7 +55,7 @@ public class RoomView extends AbstractView<Room> {
         System.out.print("Room type id: ");
         RoomType type = new RoomType();
         type.setId(input.nextInt());
-        newRoom.setRoomType(type);
+        newRoom.setType(type);
         System.out.print("length (in meters): ");
         newRoom.setLengthInMeters(input.nextInt());
         System.out.print("width (in meters): ");

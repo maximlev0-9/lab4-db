@@ -1,11 +1,23 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Zone {
+@Entity
+public class Zone implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int roleId;
+    @ManyToOne
+    private Role role;
 
+    @Override
+    public String toString() {
+        return "Zone{" +
+                "id=" + id +
+                ", role id=" + role.getId() +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -13,12 +25,20 @@ public class Zone {
         if (!(o instanceof Zone)) return false;
         Zone zone = (Zone) o;
         return id == zone.id &&
-                roleId == zone.roleId;
+                Objects.equals(role, zone.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roleId);
+        return Objects.hash(id, role);
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public int getId() {
@@ -29,19 +49,4 @@ public class Zone {
         this.id = id;
     }
 
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    @Override
-    public String toString() {
-        return "\nZone{" +
-                "id=" + id +
-                ", roleId=" + roleId +
-                '}';
-    }
 }

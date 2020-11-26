@@ -25,7 +25,7 @@ public class UserView extends AbstractView<User> {
         System.out.print("Role id: ");
         Role role = new Role();
         role.setId(input.nextInt());
-        newUser.setRoleId(role);
+        newUser.setRole(role);
         controller.save(newUser);
         System.out.println("Saved successfully");
     }
@@ -52,13 +52,13 @@ public class UserView extends AbstractView<User> {
         String roleId = input.nextLine();
         Role role;
         if (roleId.isEmpty()) {
-            role = oldUser.getRoleId();
+            role = oldUser.getRole();
         } else {
             role = new Role();
             role.setId(Integer.parseInt(roleId));
         }
 
-        newUser.setRoleId(role);
+        newUser.setRole(role);
         controller.update(newUser, id);
         System.out.println("Saved successfully");
     }
