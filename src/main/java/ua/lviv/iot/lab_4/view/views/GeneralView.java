@@ -1,9 +1,9 @@
 package ua.lviv.iot.lab_4.view.views;
 
-import ua.lviv.iot.lab_4.view.ObjectView;
+import ua.lviv.iot.lab_4.model.IWithId;
 import ua.lviv.iot.lab_4.view.View;
 
-public class GeneralView<T> extends AbstractView<T> implements View<T> {
+public class GeneralView extends AbstractView<IWithId> implements View<IWithId> {
 
     public GeneralView() {
         super(new String[]{"Users", "Objects", "Devices", "Rooms", "Roles", "Zones", "Addresses"});

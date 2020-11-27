@@ -1,6 +1,7 @@
 package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.dao.impl.ZoneDaoImpl;
+import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.model.Zone;
 
 public class ZoneView extends AbstractView<Zone> {
@@ -13,7 +14,9 @@ public class ZoneView extends AbstractView<Zone> {
         Zone newZone = new Zone();
         System.out.println("Enter it's params:");
         System.out.print("Role: ");
-        newZone.setRoleId(input.nextInt());
+        Role role = new Role();
+        role.setId(input.nextInt());
+        newZone.setRole(role);
         controller.save(newZone);
         System.out.println("Saved successfully");
     }
@@ -25,9 +28,10 @@ public class ZoneView extends AbstractView<Zone> {
         System.out.println("Enter it's params: ");
         input.nextLine();
         System.out.print("Role id: ");
-        int role = input.nextInt();
+        Role role = new Role();
+        role.setId(input.nextInt());
         Zone newZone = new Zone();
-        newZone.setRoleId(role);
+        newZone.setRole(role);
         controller.update(newZone, id);
     }
 }

@@ -3,6 +3,7 @@ package ua.lviv.iot.lab_4.view.views;
 import ua.lviv.iot.lab_4.dao.impl.DeviceDaoImpl;
 import ua.lviv.iot.lab_4.dao.impl.RoomDaoImpl;
 import ua.lviv.iot.lab_4.model.Device;
+import ua.lviv.iot.lab_4.model.DevicePlacing;
 import ua.lviv.iot.lab_4.model.DeviceType;
 import ua.lviv.iot.lab_4.model.Room;
 
@@ -20,44 +21,46 @@ public class DeviceView extends AbstractView<Device> {
         System.out.print("Model (number): ");
         newDevice.setModel(input.nextInt());
         System.out.print("Placing id: ");
-        newDevice.setPlacingId(input.nextInt());
+        DevicePlacing placing = new DevicePlacing();
+        placing.setId(input.nextInt());
+        newDevice.setPlacing(placing);
         System.out.print("Battery charge: ");
         newDevice.setBatteryCharge(input.nextInt());
         System.out.print("Device type id: ");
         DeviceType typeId = new DeviceType();
         typeId.setId(input.nextInt());
-        newDevice.setDeviceType(typeId);
+        newDevice.setType(typeId);
         controller.save(newDevice);
         System.out.println("Saved successfully");
     }
 
     @Override
     protected void updateObject() {
-        System.out.println("Enter id of user to be updated: ");
+        System.out.println("Enter id of device to be updated: ");
         int id = input.nextInt();
-        Device oldDevice = controller.findOne(id);
         Device newDevice = new Device();
-        System.out.println("Enter new params (leave blank to not change param):");
+        System.out.println("Enter new params:");
         System.out.print("Room id: ");
         input.nextLine();
         int roomId = input.nextInt();
         Room room = new Room();
         room.setId(roomId);
-        newDevice.setRoom(roomId == 0 ? oldDevice.getRoom() : room);
+        newDevice.setRoom(room);
         System.out.print("Model: ");
         int model = input.nextInt();
-        newDevice.setModel(model == 0 ? oldDevice.getModel() : model);
+        newDevice.setModel(model);
         System.out.print("Placing id: ");
-        int placing = input.nextInt();
-        newDevice.setPlacingId(placing == 0 ? oldDevice.getPlacingId() : placing);
+        DevicePlacing placing = new DevicePlacing();
+        placing.setId(input.nextInt());
+        newDevice.setPlacing(placing);
         System.out.print("Battery charge: ");
         int charge = input.nextInt();
-        newDevice.setPlacingId(charge);
+        newDevice.setBatteryCharge(charge);
         System.out.print("Device type id: ");
         int typeId = input.nextInt();
         DeviceType type = new DeviceType();
         type.setId(typeId);
-        newDevice.setDeviceType(type);
+        newDevice.setType(type);
         controller.update(newDevice, id);
         System.out.println("Updated successfully");
     }

@@ -1,12 +1,18 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class DeviceSettings {
+@Entity(name = "device_settings")
+public class DeviceSettings implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int brightness;
     private int volume;
-    private int deviceId;
+    @Column(name = "device_id")
+    @OneToOne
+    private Device device;
 
     @Override
     public boolean equals(Object o) {
@@ -16,12 +22,12 @@ public class DeviceSettings {
         return id == that.id &&
                 brightness == that.brightness &&
                 volume == that.volume &&
-                deviceId == that.deviceId;
+                Objects.equals(device, that.device);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, brightness, volume, deviceId);
+        return Objects.hash(id, brightness, volume, device);
     }
 
     public int getId() {
@@ -48,11 +54,11 @@ public class DeviceSettings {
         this.volume = volume;
     }
 
-    public int getDeviceId() {
-        return deviceId;
+    public Device getDevice() {
+        return device;
     }
 
-    public void setDeviceId(int deviceId) {
-        this.deviceId = deviceId;
+    public void setDevice(Device device) {
+        this.device = device;
     }
 }

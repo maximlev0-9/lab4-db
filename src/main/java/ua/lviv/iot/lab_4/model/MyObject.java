@@ -1,11 +1,20 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class MyObject {
+@Entity(name = "object")
+public class MyObject implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @ManyToOne
     private Address address;
+
+    public MyObject() {
+        this.address = new Address();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -51,7 +60,7 @@ public class MyObject {
         return "\nMyObject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", addressId=" + address +
+                ", address id=" + address.getId() +
                 '}';
     }
 }

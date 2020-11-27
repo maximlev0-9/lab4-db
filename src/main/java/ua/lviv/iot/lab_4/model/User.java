@@ -1,10 +1,15 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class User {
+@Entity
+public class User implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private Role roleId;
+    @OneToOne
+    private Role role;
     private String name;
     private byte age;
     private String gender;
@@ -15,7 +20,7 @@ public class User {
         if (!(o instanceof User)) return false;
         User user = (User) o;
         return id == user.id &&
-                roleId == user.roleId &&
+                role == user.role &&
                 age == user.age &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(gender, user.gender);
@@ -25,7 +30,7 @@ public class User {
     public String toString() {
         return "\nUser{" +
                 "id=" + id +
-                ", roleId=" + roleId.getId() +
+                ", role id=" + role.getId() +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
@@ -34,7 +39,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, roleId, name, age, gender);
+        return Objects.hash(id, role, name, age, gender);
     }
 
     public int getId() {
@@ -45,12 +50,12 @@ public class User {
         this.id = id;
     }
 
-    public Role getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(Role roleId) {
-        this.roleId = roleId;
+    public void setRole(Role roleId) {
+        this.role = roleId;
     }
 
     public String getName() {

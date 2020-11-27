@@ -1,9 +1,8 @@
-package ua.lviv.iot.lab_4.view;
+package ua.lviv.iot.lab_4.view.views;
 
 import ua.lviv.iot.lab_4.dao.impl.ObjectDaoImpl;
 import ua.lviv.iot.lab_4.model.Address;
 import ua.lviv.iot.lab_4.model.MyObject;
-import ua.lviv.iot.lab_4.view.views.AbstractView;
 
 public class ObjectView extends AbstractView<MyObject> {
     public ObjectView() {
@@ -31,6 +30,7 @@ public class ObjectView extends AbstractView<MyObject> {
         MyObject newObject = new MyObject();
         System.out.println("Enter it's params:");
         System.out.print("name: ");
+        input.nextLine();
         newObject.setName(input.nextLine());
         System.out.print("address id: ");
         Address a = new Address();

@@ -1,13 +1,17 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class SystemNotification {
+@Entity(name = "system_notification")
+public class SystemNotification implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String message;
     private boolean isSeen;
-    private int objectId;
-
+    @OneToOne
+    private MyObject myObject;
 
     @Override
     public boolean equals(Object o) {
@@ -16,13 +20,13 @@ public class SystemNotification {
         SystemNotification that = (SystemNotification) o;
         return id == that.id &&
                 isSeen == that.isSeen &&
-                objectId == that.objectId &&
-                Objects.equals(message, that.message);
+                Objects.equals(message, that.message) &&
+                Objects.equals(myObject, that.myObject);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, message, isSeen, objectId);
+        return Objects.hash(id, message, isSeen, myObject);
     }
 
     public int getId() {
@@ -49,11 +53,11 @@ public class SystemNotification {
         isSeen = seen;
     }
 
-    public int getObjectId() {
-        return objectId;
+    public MyObject getMyObject() {
+        return myObject;
     }
 
-    public void setObjectId(int objectId) {
-        this.objectId = objectId;
+    public void setMyObject(MyObject myObject) {
+        this.myObject = myObject;
     }
 }

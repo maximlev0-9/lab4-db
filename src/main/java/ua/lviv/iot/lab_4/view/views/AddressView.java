@@ -13,6 +13,7 @@ public class AddressView extends AbstractView<Address> {
         Address newAddress = new Address();
         System.out.println("Enter it's params:");
         System.out.print("Country: ");
+        input.nextLine();
         newAddress.setCountry(input.nextLine());
         System.out.print("City: ");
         newAddress.setCity(input.nextLine());

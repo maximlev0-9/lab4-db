@@ -1,14 +1,24 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Device {
+@Entity
+public class Device implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne
     private Room room;
     private int model;
-    private int placingId;
+    @ManyToOne(targetEntity = DevicePlacing.class)
+    private DevicePlacing placing;
+    @Column(name = "battery_charge")
     private int batteryCharge;
-    private DeviceType deviceType;
+    @ManyToOne
+    private DeviceType type;
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -16,16 +26,24 @@ public class Device {
         if (!(o instanceof Device)) return false;
         Device device = (Device) o;
         return id == device.id &&
-                room == device.room &&
                 model == device.model &&
-                placingId == device.placingId &&
                 batteryCharge == device.batteryCharge &&
-                deviceType == device.deviceType;
+                Objects.equals(room, device.room) &&
+                Objects.equals(placing, device.placing) &&
+                Objects.equals(type, device.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, room, model, placingId, batteryCharge, deviceType);
+        return Objects.hash(id, room, model, placing, batteryCharge, type);
+    }
+
+    public DevicePlacing getPlacing() {
+        return placing;
+    }
+
+    public void setPlacing(DevicePlacing placing) {
+        this.placing = placing;
     }
 
     public int getId() {
@@ -52,13 +70,6 @@ public class Device {
         this.model = model;
     }
 
-    public int getPlacingId() {
-        return placingId;
-    }
-
-    public void setPlacingId(int placingId) {
-        this.placingId = placingId;
-    }
 
     public int getBatteryCharge() {
         return batteryCharge;
@@ -68,12 +79,12 @@ public class Device {
         this.batteryCharge = batteryCharge;
     }
 
-    public DeviceType getDeviceType() {
-        return deviceType;
+    public DeviceType getType() {
+        return type;
     }
 
-    public void setDeviceType(DeviceType deviceType) {
-        this.deviceType = deviceType;
+    public void setType(DeviceType deviceType) {
+        this.type = deviceType;
     }
 
     @Override
@@ -82,9 +93,9 @@ public class Device {
                 "id=" + id +
                 ", roomId=" + room.getId() +
                 ", model=" + model +
-                ", \nplacingId=" + placingId +
+                ", placingId=" + placing.getId() +
                 ", batteryCharge=" + batteryCharge +
-                ", typeId=" + deviceType.getId() +
+                ", typeId=" + type.getId() +
                 '}';
     }
 }

@@ -1,12 +1,16 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class UserSecurity {
+@Entity(name = "user_security")
+public class UserSecurity implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
+    @OneToOne
+    private User user;
     private String password;
-
 
     @Override
     public boolean equals(Object o) {
@@ -14,13 +18,21 @@ public class UserSecurity {
         if (!(o instanceof UserSecurity)) return false;
         UserSecurity that = (UserSecurity) o;
         return id == that.id &&
-                userId == that.userId &&
+                Objects.equals(user, that.user) &&
                 Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, password);
+        return Objects.hash(id, user, password);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getId() {
@@ -31,13 +43,6 @@ public class UserSecurity {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public String getPassword() {
         return password;

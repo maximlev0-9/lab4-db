@@ -1,14 +1,24 @@
 package ua.lviv.iot.lab_4.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Room {
+@Entity
+public class Room implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne
     private MyObject object;
+    @ManyToOne
     private Zone zone;
-    private RoomType roomType;
+    @OneToOne
+    private RoomType type;
+    @Column(name = "lenght")
     private double lengthInMeters;
+    @Column(name = "width")
     private double widthInMeters;
+    @Column(name = "height")
     private double heightInMeters;
 
     @Override
@@ -19,7 +29,7 @@ public class Room {
         return id == room.id &&
                 object == room.object &&
                 zone == room.zone &&
-                roomType == room.roomType &&
+                type == room.type &&
                 Double.compare(room.lengthInMeters, lengthInMeters) == 0 &&
                 Double.compare(room.widthInMeters, widthInMeters) == 0 &&
                 Double.compare(room.heightInMeters, heightInMeters) == 0;
@@ -27,7 +37,7 @@ public class Room {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, object, zone, roomType, lengthInMeters, widthInMeters, heightInMeters);
+        return Objects.hash(id, object, zone, type, lengthInMeters, widthInMeters, heightInMeters);
     }
 
     public int getId() {
@@ -54,12 +64,12 @@ public class Room {
         this.zone = zone;
     }
 
-    public RoomType getRoomType() {
-        return roomType;
+    public RoomType getType() {
+        return type;
     }
 
-    public void setRoomType(RoomType roomType) {
-        this.roomType = roomType;
+    public void setType(RoomType roomType) {
+        this.type = roomType;
     }
 
     public double getLengthInMeters() {
@@ -90,9 +100,9 @@ public class Room {
     public String toString() {
         return "\nRoom{" +
                 "id=" + id +
-                ", objectId=" + object +
-                ", zoneId=" + zone +
-                ", typeId=" + roomType +
+                ", objectId=" + object.getId() +
+                ", zoneId=" + zone.getId() +
+                ", typeId=" + type.getId() +
                 ", \nlengthInMeters=" + lengthInMeters +
                 ", widthInMeters=" + widthInMeters +
                 ", heightInMeters=" + heightInMeters +

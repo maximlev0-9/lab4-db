@@ -1,26 +1,40 @@
 package ua.lviv.iot.lab_4.model;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Address {
+@Entity
+public final class Address implements IWithId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String country;
     private String city;
     private String street;
+    @Column(name = "building_number")
     private int buildingNumber;
-    private int flatNumber;
+    @Column(name = "flat_number")
+    private Integer flatNumber;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Address)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Address)) {
+            return false;
+        }
         Address address = (Address) o;
-        return id == address.id &&
-                buildingNumber == address.buildingNumber &&
-                flatNumber == address.flatNumber &&
-                Objects.equals(country, address.country) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(street, address.street);
+        return id == address.id
+                && buildingNumber == address.buildingNumber
+                && flatNumber == address.flatNumber
+                && Objects.equals(country, address.country)
+                && Objects.equals(city, address.city)
+                && Objects.equals(street, address.street);
     }
 
     @Override
@@ -74,5 +88,17 @@ public class Address {
 
     public void setFlatNumber(int flatNumber) {
         this.flatNumber = flatNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "\nAddress{" +
+                "id=" + id +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", buildingNumber=" + buildingNumber +
+                ", flatNumber=" + flatNumber +
+                '}';
     }
 }
