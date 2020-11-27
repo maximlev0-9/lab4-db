@@ -1,12 +1,13 @@
 package ua.lviv.iot.lab_4.view.views;
 
+import ua.lviv.iot.lab_4.controller.ObjectController;
 import ua.lviv.iot.lab_4.dao.impl.ObjectDaoImpl;
 import ua.lviv.iot.lab_4.model.Address;
 import ua.lviv.iot.lab_4.model.MyObject;
 
 public class ObjectView extends AbstractView<MyObject> {
     public ObjectView() {
-        super(new ObjectDaoImpl());
+        super(new ObjectController());
     }
 
     @Override

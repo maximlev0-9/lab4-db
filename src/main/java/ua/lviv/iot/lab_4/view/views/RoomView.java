@@ -1,6 +1,6 @@
 package ua.lviv.iot.lab_4.view.views;
 
-import ua.lviv.iot.lab_4.dao.impl.RoomDaoImpl;
+import ua.lviv.iot.lab_4.controller.RoomController;
 import ua.lviv.iot.lab_4.model.MyObject;
 import ua.lviv.iot.lab_4.model.Room;
 import ua.lviv.iot.lab_4.model.RoomType;
@@ -8,7 +8,7 @@ import ua.lviv.iot.lab_4.model.Zone;
 
 public class RoomView extends AbstractView<Room> {
     public RoomView() {
-        super(new RoomDaoImpl());
+        super(new RoomController());
     }
 
     @Override

@@ -1,12 +1,12 @@
 package ua.lviv.iot.lab_4.view.views;
 
-import ua.lviv.iot.lab_4.dao.impl.ZoneDaoImpl;
+import ua.lviv.iot.lab_4.controller.ZoneController;
 import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.model.Zone;
 
 public class ZoneView extends AbstractView<Zone> {
     public ZoneView() {
-        super(new ZoneDaoImpl());
+        super(new ZoneController());
     }
 
     @Override

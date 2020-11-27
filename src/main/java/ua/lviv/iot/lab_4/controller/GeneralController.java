@@ -5,10 +5,10 @@ import ua.lviv.iot.lab_4.model.IWithId;
 
 import java.util.List;
 
-public final class Controller<T extends IWithId> {
+public class GeneralController<T extends IWithId> {
     private final AbstractGeneralDao<T> dao;
 
-    public Controller(final AbstractGeneralDao<T> passedDao) {
+    public GeneralController(final AbstractGeneralDao<T> passedDao) {
         this.dao = passedDao;
     }
 
@@ -31,4 +31,9 @@ public final class Controller<T extends IWithId> {
     public void update(final T t, final int id) {
         dao.update(t, id);
     }
+
+    public AbstractGeneralDao<T> getDao(){
+        return dao;
+    }
+
 }

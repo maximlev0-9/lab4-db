@@ -1,7 +1,6 @@
 package ua.lviv.iot.lab_4.view.views;
 
-import ua.lviv.iot.lab_4.controller.Controller;
-import ua.lviv.iot.lab_4.dao.AbstractGeneralDao;
+import ua.lviv.iot.lab_4.controller.GeneralController;
 import ua.lviv.iot.lab_4.model.IWithId;
 import ua.lviv.iot.lab_4.view.MenuOption;
 import ua.lviv.iot.lab_4.view.View;
@@ -15,13 +14,13 @@ public abstract class AbstractView<T extends IWithId> implements View<T> {
 
     protected final Map<String, MenuOption> methodsMenu = new HashMap<>();
     protected final Scanner input = new Scanner(System.in);
-    protected final Controller<T> controller;
+    protected final GeneralController<T> controller;
     protected final String[] options;
     protected final String nameOfTable;
 
-    public AbstractView(AbstractGeneralDao<T> dao) {
-        this.controller = new Controller<>(dao);
-        nameOfTable = dao.getName().split("\\.")[5];
+    public AbstractView(GeneralController<T> controller) {
+        this.controller = controller;
+        nameOfTable = controller.getDao().getName().split("\\.")[5];
         this.options = new String[]{
                 "Find all " + nameOfTable + "s",
                 "Add new " + nameOfTable,
@@ -37,7 +36,7 @@ public abstract class AbstractView<T extends IWithId> implements View<T> {
     public AbstractView(String[] options) {
         this.options = options;
         this.nameOfTable = "";
-        this.controller = new Controller<>(null);
+        this.controller = new GeneralController<>(null);
     }
 
     protected void findAllObjects() {

@@ -1,9 +1,5 @@
 package ua.lviv.iot.lab_4.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -31,7 +27,7 @@ public final class Address implements IWithId {
         Address address = (Address) o;
         return id == address.id
                 && buildingNumber == address.buildingNumber
-                && flatNumber == address.flatNumber
+                && flatNumber.equals(address.flatNumber)
                 && Objects.equals(country, address.country)
                 && Objects.equals(city, address.city)
                 && Objects.equals(street, address.street);

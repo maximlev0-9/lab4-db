@@ -1,5 +1,6 @@
 package ua.lviv.iot.lab_4.view.views;
 
+import ua.lviv.iot.lab_4.controller.DeviceController;
 import ua.lviv.iot.lab_4.dao.impl.DeviceDaoImpl;
 import ua.lviv.iot.lab_4.dao.impl.RoomDaoImpl;
 import ua.lviv.iot.lab_4.model.Device;
@@ -9,7 +10,7 @@ import ua.lviv.iot.lab_4.model.Room;
 
 public class DeviceView extends AbstractView<Device> {
     public DeviceView() {
-        super(new DeviceDaoImpl());
+        super(new DeviceController());
     }
 
     @Override

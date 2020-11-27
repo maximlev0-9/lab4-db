@@ -1,11 +1,11 @@
 package ua.lviv.iot.lab_4.view.views;
 
-import ua.lviv.iot.lab_4.dao.impl.AddressDaoImpl;
+import ua.lviv.iot.lab_4.controller.AddressController;
 import ua.lviv.iot.lab_4.model.Address;
 
 public class AddressView extends AbstractView<Address> {
     public AddressView() {
-        super(new AddressDaoImpl());
+        super(new AddressController());
     }
 
     @Override

@@ -1,12 +1,13 @@
 package ua.lviv.iot.lab_4.view.views;
 
+import ua.lviv.iot.lab_4.controller.RoleController;
 import ua.lviv.iot.lab_4.dao.impl.RoleDaoImpl;
 import ua.lviv.iot.lab_4.model.Role;
 
 public class RoleView extends AbstractView<Role> {
 
     public RoleView() {
-        super(new RoleDaoImpl());
+        super(new RoleController());
     }
 
     @Override

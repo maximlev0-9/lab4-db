@@ -1,6 +1,6 @@
 package ua.lviv.iot.lab_4.view.views;
 
-import ua.lviv.iot.lab_4.dao.impl.UserDaoImpl;
+import ua.lviv.iot.lab_4.controller.UserController;
 import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.model.User;
 
@@ -9,7 +9,7 @@ import ua.lviv.iot.lab_4.model.User;
 public class UserView extends AbstractView<User> {
 
     public UserView() {
-        super(new UserDaoImpl());
+        super(new UserController());
     }
 
     @Override
