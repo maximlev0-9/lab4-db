@@ -20,7 +20,8 @@ public abstract class AbstractView<T extends IWithId> implements View<T> {
 
     public AbstractView(GeneralController<T> controller) {
         this.controller = controller;
-        nameOfTable = controller.getDao().getName().split("\\.")[5];
+        String[] split = controller.getDao().getName().split("\\.");
+        nameOfTable = split[split.length - 1];
         this.options = new String[]{
                 "Find all " + nameOfTable + "s",
                 "Add new " + nameOfTable,
