@@ -1,12 +1,14 @@
 package ua.lviv.iot.lab_4.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 @Entity
-public class Role implements IWithId {
+public class Role extends RepresentationModel<Role> implements IWithId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

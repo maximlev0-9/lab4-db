@@ -10,7 +10,6 @@ public class DeviceSettings implements IWithId {
     private int id;
     private int brightness;
     private int volume;
-    @Column(name = "device_id")
     @OneToOne
     private Device device;
 
