@@ -1,6 +1,8 @@
 package ua.lviv.iot.lab_4.dao;
 
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import ua.lviv.iot.lab_4.model.IWithId;
 
 import java.util.List;
@@ -24,28 +26,52 @@ public abstract class AbstractGeneralDao<T extends IWithId> implements GeneralDa
 
     @Override
     public List<T> findAll() {
-        return findAllDefault();
+        Session session = getSession();
+        session.beginTransaction();
+        String sqlForFindingAll = getSqlForFindingAll();
+        Query<T> query = session.createQuery(sqlForFindingAll, getClassOfThis());
+        List<T> resultList = query.getResultList();
+        session.getTransaction().commit();
+        return resultList;
     }
 
 
     @Override
     public T save(T t) {
-        return saveDefault(t);
+        Session session = getSession();
+        try {
+            session.beginTransaction();
+            Integer id = (Integer) session.save(t);
+            t.setId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            getSession().getTransaction().commit();
+        }
+        return t;
     }
 
     @Override
     public void deleteById(int id) {
-        deleteByIdDefault(id);
+        Session session = getSession();
+        session.beginTransaction();
+        session.delete(findOne(id));
+        session.getTransaction().commit();
     }
 
     @Override
     public T findOne(int id) {
-        return findOneDefault(id);
+        Session session = getSession();
+        return session.find(getClassOfThis(), id);
     }
 
     @Override
     public void update(T t, int id) {
-        updateDefault(t, id);
+        Session session = getSession();
+        session.beginTransaction();
+        t.setId(id);
+        session.merge(t);
+        session.getTransaction().commit();
     }
 
     @Override
