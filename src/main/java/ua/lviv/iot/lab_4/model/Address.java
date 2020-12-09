@@ -1,14 +1,12 @@
 package ua.lviv.iot.lab_4.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public final class Address implements IWithId {
+public final class Address extends RepresentationModel<Address> implements IWithId {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

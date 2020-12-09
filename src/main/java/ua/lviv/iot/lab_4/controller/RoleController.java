@@ -1,12 +1,10 @@
 package ua.lviv.iot.lab_4.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.hateoas.Link;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ua.lviv.iot.lab_4.exceptions.NoSuchRoleException;
 import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.service.RoleService;
 
@@ -23,22 +21,36 @@ public class RoleController {
     private final RoleService service;
 
 
-    @GetMapping()
-    public ResponseEntity<List<Role>> getAllRoles() {
-        List<Role> roles = service.getAllRoles();
-        Link link = linkTo(methodOn(this.getClass()).getAllRoles()).withSelfRel();
-        for (Role role : roles) {
-            Link selfLink = Link.of(link.getHref() + "/" + role.getId()).withSelfRel();
-            role.add(selfLink);
-        }
-        return ResponseEntity.ok(roles);
+    @GetMapping
+    public ResponseEntity<CollectionModel<Role>> getAllRoles() {
+        return service.getAllRoles();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Role> getRoleById(@PathVariable("id") Integer id) {
-        Role role = service.findById(id);
-        role.add(linkTo(methodOn(this.getClass()).getRoleById(id)).withSelfRel());
-        role.add(linkTo(methodOn(this.getClass()).getAllRoles()).withRel("all roles"));
-        return ResponseEntity.ok(role);
+        try {
+            Role role = service.findById(id).orElseThrow(NoSuchRoleException::new);
+            role.add(linkTo(methodOn(this.getClass()).getRoleById(id)).withSelfRel());
+            role.add(linkTo(methodOn(this.getClass()).getAllRoles()).withRel("all roles"));
+            return ResponseEntity.ok(role);
+        } catch (NoSuchRoleException e) {
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Integer> addRole(@RequestBody Role role) {
+        return service.addRole(role);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Role> updateRole(@PathVariable("id") Integer id, @RequestBody Role role) {
+        return service.updateRole(id, role);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Role> deleteRole(@PathVariable("id") Integer id){
+        return service.deleteById(id);
     }
 }
