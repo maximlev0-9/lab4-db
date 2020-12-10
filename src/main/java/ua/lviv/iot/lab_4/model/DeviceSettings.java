@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "device_settings")
-public class DeviceSettings implements IWithId {
+public class DeviceSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

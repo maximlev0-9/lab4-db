@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public final class Address extends RepresentationModel<Address> implements IWithId {
+public final class Address extends RepresentationModel<Address>  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

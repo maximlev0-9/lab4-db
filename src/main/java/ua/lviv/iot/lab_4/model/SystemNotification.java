@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "system_notification")
-public class SystemNotification implements IWithId {
+public class SystemNotification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

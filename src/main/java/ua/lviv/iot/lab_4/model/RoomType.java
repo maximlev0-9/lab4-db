@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity(name = "room_type")
-public class RoomType implements IWithId {
+public class RoomType  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

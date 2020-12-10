@@ -48,8 +48,8 @@ public class AddressService {
     public ResponseEntity<Address> updateAddress(Integer id, Address address) {
         try {
             Address oldAddress = repository.findById(id).orElseThrow(NoSuchAddressException::new);
-            oldAddress.setFlatNumber(address.getFlatNumber());
-            repository.save(oldAddress);
+            address.setId(id);
+            repository.save(address);
             return ResponseEntity.ok(oldAddress);
         } catch (NoSuchAddressException e) {
             e.printStackTrace();

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity(name = "device_type")
-public class DeviceType implements IWithId {
+public class DeviceType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

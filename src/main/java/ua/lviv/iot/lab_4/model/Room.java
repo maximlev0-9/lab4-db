@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Data
-public class Room extends RepresentationModel<Room> implements IWithId {
+public class Room extends RepresentationModel<Room> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

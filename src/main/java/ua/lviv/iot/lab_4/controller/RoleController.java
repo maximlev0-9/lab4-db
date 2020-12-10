@@ -4,14 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.lviv.iot.lab_4.exceptions.NoSuchRoleException;
 import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.service.RoleService;
 
-import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/role")
@@ -28,15 +24,7 @@ public class RoleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Role> getRoleById(@PathVariable("id") Integer id) {
-        try {
-            Role role = service.findById(id).orElseThrow(NoSuchRoleException::new);
-            role.add(linkTo(methodOn(this.getClass()).getRoleById(id)).withSelfRel());
-            role.add(linkTo(methodOn(this.getClass()).getAllRoles()).withRel("all roles"));
-            return ResponseEntity.ok(role);
-        } catch (NoSuchRoleException e) {
-            e.printStackTrace();
-            return ResponseEntity.notFound().build();
-        }
+        return service.getRoleById(id);
     }
 
     @PostMapping

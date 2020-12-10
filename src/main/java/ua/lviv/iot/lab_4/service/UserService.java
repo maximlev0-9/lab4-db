@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ua.lviv.iot.lab_4.controller.RoleController;
 import ua.lviv.iot.lab_4.controller.UserController;
 import ua.lviv.iot.lab_4.exceptions.NoSuchUserException;
 import ua.lviv.iot.lab_4.model.User;
@@ -23,6 +24,7 @@ public class UserService {
         List<User> users = repository.findAll();
         for (User user : users) {
             user.add(linkTo(methodOn(UserController.class).getUserById(user.getId())).withSelfRel());
+            user.getRole().add(linkTo(methodOn(RoleController.class).getRoleById(user.getRole().getId())).withSelfRel());
         }
         return ResponseEntity.ok(CollectionModel.of(users, linkTo(methodOn(UserController.class).getAllUsers()).withSelfRel()));
     }

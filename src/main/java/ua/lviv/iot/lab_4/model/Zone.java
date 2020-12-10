@@ -1,19 +1,21 @@
 package ua.lviv.iot.lab_4.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Data
-public class Zone extends RepresentationModel<Zone> implements IWithId {
+public class Zone extends RepresentationModel<Zone> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
+    @JsonManagedReference
+    @ManyToOne(cascade = CascadeType.ALL)
     private Role role;
 
     @Override
