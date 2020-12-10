@@ -14,7 +14,7 @@ public class Zone extends RepresentationModel<Zone> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @JsonManagedReference
+    @JsonBackReference("zones")
     @ManyToOne(cascade = CascadeType.ALL)
     private Role role;
 

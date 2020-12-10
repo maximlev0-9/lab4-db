@@ -2,6 +2,7 @@ package ua.lviv.iot.lab_4.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.lviv.iot.lab_4.controller.ObjectController;
@@ -40,6 +41,7 @@ public class ObjectService {
     }
 
     public ResponseEntity<Integer> addObject(MyObject object) {
+        object.setId(0);
         MyObject newObject = repository.save(object);
         return ResponseEntity.ok(newObject.getId());
     }
@@ -52,7 +54,7 @@ public class ObjectService {
             return ResponseEntity.ok(oldObject);
         } catch (NoSuchObjectException e) {
             e.printStackTrace();
-            return ResponseEntity.unprocessableEntity().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 

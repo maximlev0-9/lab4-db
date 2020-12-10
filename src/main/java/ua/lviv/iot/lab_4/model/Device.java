@@ -13,7 +13,7 @@ public class Device extends RepresentationModel<Device>  {
     @ManyToOne
     private Room room;
     private int model;
-    @ManyToOne(targetEntity = DevicePlacing.class)
+    @ManyToOne
     private DevicePlacing placing;
     @Column(name = "battery_charge")
     private int batteryCharge;

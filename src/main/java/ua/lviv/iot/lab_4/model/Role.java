@@ -17,10 +17,10 @@ public class Role extends RepresentationModel<Role> {
     private int id;
     private String role;
     @OneToMany(mappedBy = "role")
-    @JsonBackReference
+    @JsonManagedReference("zones")
     private List<Zone> zones;
     @OneToMany(mappedBy = "role")
-    @JsonBackReference
+    @JsonManagedReference("users")
     private List<User> users;
 
     @Override

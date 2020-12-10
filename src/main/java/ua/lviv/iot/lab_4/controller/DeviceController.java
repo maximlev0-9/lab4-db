@@ -28,7 +28,7 @@ public class DeviceController {
         return service.addDevice(device);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}")
     public ResponseEntity<Device> updateDevice(@PathVariable("id") Integer id, @RequestBody Device device) {
         return service.updateDevice(id, device);
     }

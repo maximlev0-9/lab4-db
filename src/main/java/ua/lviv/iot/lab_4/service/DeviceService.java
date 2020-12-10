@@ -2,12 +2,11 @@ package ua.lviv.iot.lab_4.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.lviv.iot.lab_4.controller.DeviceController;
-import ua.lviv.iot.lab_4.controller.DeviceController;
 import ua.lviv.iot.lab_4.exceptions.NoSuchDeviceException;
-import ua.lviv.iot.lab_4.model.Device;
 import ua.lviv.iot.lab_4.model.Device;
 import ua.lviv.iot.lab_4.repository.DeviceRepository;
 
@@ -19,7 +18,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @Service
 @AllArgsConstructor
 public class DeviceService {
-
     private final DeviceRepository repository;
 
     public ResponseEntity<CollectionModel<Device>> getAllDevices() {
@@ -43,6 +41,7 @@ public class DeviceService {
     }
 
     public ResponseEntity<Integer> addDevice(Device device) {
+        device.setId(0);
         Device newDevice = repository.save(device);
         return ResponseEntity.ok(newDevice.getId());
     }
@@ -55,7 +54,7 @@ public class DeviceService {
             return ResponseEntity.ok(oldDevice);
         } catch (NoSuchDeviceException e) {
             e.printStackTrace();
-            return ResponseEntity.unprocessableEntity().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -65,8 +64,8 @@ public class DeviceService {
             repository.deleteById(id);
             return ResponseEntity.ok(device);
         } catch (NoSuchDeviceException e) {
-            e.printStackTrace();
-            return ResponseEntity.unprocessableEntity().build();
+            System.out.println("No such device");
+            return ResponseEntity.notFound().build();
         }
     }
 

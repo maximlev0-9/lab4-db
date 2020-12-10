@@ -12,7 +12,7 @@ public class User extends RepresentationModel<User> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @JsonManagedReference
+    @JsonBackReference("users")
     @ManyToOne(cascade = CascadeType.ALL)
     private Role role;
     private String name;
