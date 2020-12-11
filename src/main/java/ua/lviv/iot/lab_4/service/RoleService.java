@@ -11,6 +11,7 @@ import ua.lviv.iot.lab_4.exceptions.NoSuchRoleException;
 import ua.lviv.iot.lab_4.model.Role;
 import ua.lviv.iot.lab_4.repository.RoleRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -21,6 +22,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class RoleService {
     private final RoleRepository repository;
 
+    @Transactional
     public ResponseEntity<CollectionModel<Role>> getAllRoles() {
         List<Role> roles = repository.findAll();
         for (Role role : roles) {
@@ -31,6 +33,7 @@ public class RoleService {
         return ResponseEntity.ok(CollectionModel.of(roles, linkTo(methodOn(RoleController.class).getAllRoles()).withSelfRel()));
     }
 
+    @Transactional
     public ResponseEntity<Role> getRoleById(Integer id) {
         try {
             Role role = repository.findById(id).orElseThrow(NoSuchRoleException::new);
@@ -45,12 +48,14 @@ public class RoleService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Integer> addRole(Role role) {
         Role newRole = repository.save(role);
         newRole.add(linkTo(methodOn(RoleController.class).getRoleById(role.getId())).withSelfRel());
         return ResponseEntity.ok(newRole.getId());
     }
 
+    @Transactional
     public ResponseEntity<Role> updateRole(Integer id, Role role) {
         try {
             Role oldRole = repository.findById(id).orElseThrow(NoSuchRoleException::new);
@@ -64,6 +69,7 @@ public class RoleService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Role> deleteById(Integer id) {
         try {
             Role role = repository.findById(id).orElseThrow(NoSuchRoleException::new);

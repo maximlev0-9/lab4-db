@@ -10,6 +10,7 @@ import ua.lviv.iot.lab_4.exceptions.NoSuchObjectException;
 import ua.lviv.iot.lab_4.model.MyObject;
 import ua.lviv.iot.lab_4.repository.ObjectRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ObjectService {
     private final ObjectRepository repository;
 
+    @Transactional
     public ResponseEntity<CollectionModel<MyObject>> getAllObjects() {
         List<MyObject> objects = repository.findAll();
         for (MyObject object : objects) {
@@ -28,6 +30,7 @@ public class ObjectService {
         return ResponseEntity.ok(CollectionModel.of(objects, linkTo(methodOn(ObjectController.class).getAllObjects()).withSelfRel()));
     }
 
+    @Transactional
     public ResponseEntity<MyObject> findObjectById(Integer id) {
         try {
             MyObject myObject = repository.findById(id).orElseThrow(NoSuchObjectException::new);
@@ -40,12 +43,14 @@ public class ObjectService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Integer> addObject(MyObject object) {
         object.setId(0);
         MyObject newObject = repository.save(object);
         return ResponseEntity.ok(newObject.getId());
     }
 
+    @Transactional
     public ResponseEntity<MyObject> updateObject(Integer id, MyObject object) {
         try {
             MyObject oldObject = repository.findById(id).orElseThrow(NoSuchObjectException::new);
@@ -58,6 +63,7 @@ public class ObjectService {
         }
     }
 
+    @Transactional
     public ResponseEntity<MyObject> deleteById(Integer id) {
         try {
             MyObject object = repository.findById(id).orElseThrow(NoSuchObjectException::new);

@@ -10,6 +10,7 @@ import ua.lviv.iot.lab_4.exceptions.NoSuchZoneException;
 import ua.lviv.iot.lab_4.model.Zone;
 import ua.lviv.iot.lab_4.repository.ZoneRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ZoneService {
     private final ZoneRepository repository;
 
+    @Transactional
     public ResponseEntity<CollectionModel<Zone>> getAllZones() {
         List<Zone> zones = repository.findAll();
         for (Zone zone : zones) {
@@ -29,6 +31,7 @@ public class ZoneService {
         return ResponseEntity.ok(CollectionModel.of(zones, linkTo(methodOn(ZoneController.class).getAllZones()).withSelfRel()));
     }
 
+    @Transactional
     public ResponseEntity<Zone> findZoneById(Integer id) {
         try {
             Zone zone = repository.findById(id).orElseThrow(NoSuchZoneException::new);
@@ -41,11 +44,13 @@ public class ZoneService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Integer> addZone(Zone zone) {
         Zone newZone = repository.save(zone);
         return ResponseEntity.ok(newZone.getId());
     }
 
+    @Transactional
     public ResponseEntity<Zone> updateZone(Integer id, Zone zone) {
         try {
             Zone oldZone = repository.findById(id).orElseThrow(NoSuchZoneException::new);
@@ -58,6 +63,7 @@ public class ZoneService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Zone> deleteById(Integer id) {
         try {
             Zone zone = repository.findById(id).orElseThrow(NoSuchZoneException::new);

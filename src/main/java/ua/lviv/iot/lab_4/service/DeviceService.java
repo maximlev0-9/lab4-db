@@ -10,6 +10,7 @@ import ua.lviv.iot.lab_4.exceptions.NoSuchDeviceException;
 import ua.lviv.iot.lab_4.model.Device;
 import ua.lviv.iot.lab_4.repository.DeviceRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class DeviceService {
     private final DeviceRepository repository;
 
+    @Transactional
     public ResponseEntity<CollectionModel<Device>> getAllDevices() {
         List<Device> devices = repository.findAll();
         for (Device device : devices) {
@@ -28,6 +30,7 @@ public class DeviceService {
         return ResponseEntity.ok(CollectionModel.of(devices, linkTo(methodOn(DeviceController.class).getAllDevices()).withSelfRel()));
     }
 
+    @Transactional
     public ResponseEntity<Device> findDeviceById(Integer id) {
         try {
             Device device = repository.findById(id).orElseThrow(NoSuchDeviceException::new);
@@ -40,12 +43,14 @@ public class DeviceService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Integer> addDevice(Device device) {
         device.setId(0);
         Device newDevice = repository.save(device);
         return ResponseEntity.ok(newDevice.getId());
     }
 
+    @Transactional
     public ResponseEntity<Device> updateDevice(Integer id, Device device) {
         try {
             Device oldDevice = repository.findById(id).orElseThrow(NoSuchDeviceException::new);
@@ -58,6 +63,7 @@ public class DeviceService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Device> deleteById(Integer id) {
         try {
             Device device = repository.findById(id).orElseThrow(NoSuchDeviceException::new);

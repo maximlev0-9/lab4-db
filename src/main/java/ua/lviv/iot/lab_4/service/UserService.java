@@ -10,6 +10,7 @@ import ua.lviv.iot.lab_4.exceptions.NoSuchUserException;
 import ua.lviv.iot.lab_4.model.User;
 import ua.lviv.iot.lab_4.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserService {
     private final UserRepository repository;
 
+    @Transactional
     public ResponseEntity<CollectionModel<User>> getAllUsers() {
         List<User> users = repository.findAll();
         for (User user : users) {
@@ -29,6 +31,7 @@ public class UserService {
         return ResponseEntity.ok(CollectionModel.of(users, linkTo(methodOn(UserController.class).getAllUsers()).withSelfRel()));
     }
 
+    @Transactional
     public ResponseEntity<User> getUserById(Integer id) {
         try {
             User user = repository.findById(id).orElseThrow(NoSuchUserException::new);
@@ -40,11 +43,13 @@ public class UserService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Integer> addUser(User user) {
         User newUser = repository.save(user);
         return ResponseEntity.ok(newUser.getId());
     }
 
+    @Transactional
     public ResponseEntity<User> updateUser(Integer id, User user) {
         try {
             if (repository.existsById(id)) {

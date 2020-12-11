@@ -10,6 +10,7 @@ import ua.lviv.iot.lab_4.exceptions.NoSuchAddressException;
 import ua.lviv.iot.lab_4.model.Address;
 import ua.lviv.iot.lab_4.repository.AddressRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -20,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class AddressService {
     private final AddressRepository repository;
 
+    @Transactional
     public ResponseEntity<CollectionModel<Address>> getAllAddresses() {
         List<Address> addresses = repository.findAll();
         for (Address address : addresses) {
@@ -28,6 +30,7 @@ public class AddressService {
         return ResponseEntity.ok(CollectionModel.of(addresses, linkTo(methodOn(AddressController.class).getAllAddresses()).withSelfRel()));
     }
 
+    @Transactional
     public ResponseEntity<Address> findAddressById(Integer id) {
         try {
             Address address = repository.findById(id).orElseThrow(NoSuchAddressException::new);
@@ -40,11 +43,13 @@ public class AddressService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Integer> addAddress(Address address) {
         Address newAddress = repository.save(address);
         return ResponseEntity.ok(newAddress.getId());
     }
 
+    @Transactional
     public ResponseEntity<Address> updateAddress(Integer id, Address address) {
         try {
             Address oldAddress = repository.findById(id).orElseThrow(NoSuchAddressException::new);
@@ -57,6 +62,7 @@ public class AddressService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Address> deleteById(Integer id) {
         try {
             Address address = repository.findById(id).orElseThrow(NoSuchAddressException::new);
