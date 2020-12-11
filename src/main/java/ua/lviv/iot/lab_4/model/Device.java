@@ -1,17 +1,19 @@
 package ua.lviv.iot.lab_4.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Device implements IWithId {
+public class Device extends RepresentationModel<Device>  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
     private Room room;
     private int model;
-    @ManyToOne(targetEntity = DevicePlacing.class)
+    @ManyToOne
     private DevicePlacing placing;
     @Column(name = "battery_charge")
     private int batteryCharge;

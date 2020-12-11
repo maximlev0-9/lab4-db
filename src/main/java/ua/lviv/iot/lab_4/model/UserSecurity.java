@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "user_security")
-public class UserSecurity implements IWithId {
+public class UserSecurity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

@@ -1,16 +1,27 @@
 package ua.lviv.iot.lab_4.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
+
 @Entity
-public class Role implements IWithId {
+@Data
+public class Role extends RepresentationModel<Role> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String role;
+    @OneToMany(mappedBy = "role")
+    @JsonManagedReference("zones")
+    private List<Zone> zones;
+    @OneToMany(mappedBy = "role")
+    @JsonManagedReference("users")
+    private List<User> users;
 
     @Override
     public boolean equals(Object o) {
@@ -24,22 +35,6 @@ public class Role implements IWithId {
     @Override
     public int hashCode() {
         return Objects.hash(id, role);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     @Override

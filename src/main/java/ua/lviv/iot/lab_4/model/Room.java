@@ -1,10 +1,14 @@
 package ua.lviv.iot.lab_4.model;
 
+import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Room implements IWithId {
+@Data
+public class Room extends RepresentationModel<Room> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,61 +44,6 @@ public class Room implements IWithId {
         return Objects.hash(id, object, zone, type, lengthInMeters, widthInMeters, heightInMeters);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public MyObject getObject() {
-        return object;
-    }
-
-    public void setObject(MyObject object) {
-        this.object = object;
-    }
-
-    public Zone getZone() {
-        return zone;
-    }
-
-    public void setZone(Zone zone) {
-        this.zone = zone;
-    }
-
-    public RoomType getType() {
-        return type;
-    }
-
-    public void setType(RoomType roomType) {
-        this.type = roomType;
-    }
-
-    public double getLengthInMeters() {
-        return lengthInMeters;
-    }
-
-    public void setLengthInMeters(double lengthInMeters) {
-        this.lengthInMeters = lengthInMeters;
-    }
-
-    public double getWidthInMeters() {
-        return widthInMeters;
-    }
-
-    public void setWidthInMeters(double widthInMeters) {
-        this.widthInMeters = widthInMeters;
-    }
-
-    public double getHeightInMeters() {
-        return heightInMeters;
-    }
-
-    public void setHeightInMeters(double heightInMeters) {
-        this.heightInMeters = heightInMeters;
-    }
 
     @Override
     public String toString() {

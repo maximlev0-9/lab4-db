@@ -4,13 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "device_settings")
-public class DeviceSettings implements IWithId {
+public class DeviceSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int brightness;
     private int volume;
-    @Column(name = "device_id")
     @OneToOne
     private Device device;
 

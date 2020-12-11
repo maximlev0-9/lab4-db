@@ -1,14 +1,19 @@
 package ua.lviv.iot.lab_4.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class User implements IWithId {
+public class User extends RepresentationModel<User> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
+    @JsonBackReference("users")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Role role;
     private String name;
     private byte age;

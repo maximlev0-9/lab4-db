@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity(name = "device_placing")
-public class DevicePlacing implements IWithId {
+public class DevicePlacing  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

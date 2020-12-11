@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class DeviceNotification implements IWithId {
+public class DeviceNotification  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
